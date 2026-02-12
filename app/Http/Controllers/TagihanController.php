@@ -96,4 +96,19 @@ class TagihanController extends Controller
 
             return back()->with('success', 'Pembayaran berhasil diverifikasi & kas bertambah');
         }
+
+    public function cetak($id)
+    {
+            $tagihan = Tagihan::with(['pelanggan','meter'])->findOrFail($id);
+
+        if ($tagihan->status != 1) {
+            return back()->with('error', 'Tagihan belum dibayar');
+        }
+
+        // Nomor transaksi unik (timestamp)
+        $noTransaksi = 'TRX-' . now()->format('YmdHis') . '-' . $tagihan->id;
+
+            return view('tagihan.cetak', compact('tagihan','noTransaksi'));
+    }
+
 }

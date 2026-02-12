@@ -30,12 +30,14 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('pelanggan', PelangganController::class);
     Route::resource('meter', MeterAirController::class)->only(['index','store']);
+    Route::post('/meter/manual', [MeterAirController::class, 'storeManual'])->name('meter.manual');
     Route::post('pembayaran', [PembayaranController::class,'store']);
 
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
     Route::get('/tagihan/{tagihan}', [TagihanController::class, 'show'])->name('tagihan.show');
     Route::post('/tagihan/generate', [TagihanController::class, 'generate'])->name('tagihan.generate');
     Route::post('/tagihan/{id}/verifikasi', [TagihanController::class, 'verifikasi'])->name('tagihan.verifikasi');
+    Route::get('/tagihan/{id}/cetak', [TagihanController::class, 'cetak'])->name('tagihan.cetak');
 
     Route::get('/kas', [KasDesaController::class, 'index'])->name('kas.index');
     Route::post('/kas', [KasDesaController::class, 'store'])->name('kas.store');

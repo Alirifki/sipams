@@ -27,6 +27,11 @@
             <p><strong>Tanggal Bayar:</strong>
                 {{ \Carbon\Carbon::parse($tagihan->tanggal_bayar)->format('d-m-Y') }}
             </p>
+                <a href="{{ route('tagihan.cetak', $tagihan->id) }}"
+                target="_blank"
+                class="btn btn-primary mt-3">
+                🖨 Cetak Struk
+                </a>
         @else
             <form method="POST" action="{{ route('tagihan.verifikasi', $tagihan->id) }}">
                 @csrf
